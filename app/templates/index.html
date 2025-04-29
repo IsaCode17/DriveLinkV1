@@ -1,3 +1,31 @@
-<h1>Nada aqui</h1>
+{% extends "base.html" %}
 
-<a href="base.html">aquí</a>
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Bienvenido a DriveLink</h1>
+    <p class="lead">Sube archivos desde enlaces directamente a tu Google Drive</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title">Inicia sesión para comenzar</h4>
+                    <p class="card-text">Necesitas autenticarte con Google para usar la aplicación</p>
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-primary">
+                        <i class="fab fa-google"></i> Iniciar sesión con Google
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <h3>¿Cómo funciona?</h3>
+        <ol>
+            <li>Inicia sesión con tu cuenta de Google</li>
+            <li>Ingresa el enlace de descarga del archivo</li>
+            <li>La aplicación lo subirá directamente a tu Drive</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}
