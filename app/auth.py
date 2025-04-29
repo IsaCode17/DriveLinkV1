@@ -4,6 +4,8 @@ from oauthlib.oauth2 import WebApplicationClient
 import requests
 from .models import User
 from app.models import User
+from config import Config
+
 
 auth_bp = Blueprint('auth', __name__)
 login_manager = LoginManager()
