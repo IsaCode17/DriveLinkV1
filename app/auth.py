@@ -5,6 +5,7 @@ import requests
 from .models import User
 from app.models import User
 from config import Config
+from flask_login import login_required
 
 
 auth_bp = Blueprint('auth', __name__)
