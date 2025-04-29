@@ -1,1 +1,14 @@
+{% extends "base.html" %}
 
+{% block content %}
+<h1>Bienvenido, {{ user.name }}!</h1>
+<p>Sube archivos desde una URL directamente a tu Google Drive</p>
+
+<form method="POST" action="{{ url_for('main.transfer') }}">
+    <div class="form-group">
+        <label for="download_url">URL del archivo a descargar:</label>
+        <input type="url" id="download_url" name="download_url" required class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Transferir a Google Drive</button>
+</form>
+{% endblock %}
