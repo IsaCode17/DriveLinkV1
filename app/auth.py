@@ -3,6 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, current_user
 from oauthlib.oauth2 import WebApplicationClient
 import requests
 from .models import User
+from app.models import User
 
 auth_bp = Blueprint('auth', __name__)
 login_manager = LoginManager()
