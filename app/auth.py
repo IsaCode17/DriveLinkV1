@@ -6,6 +6,7 @@ from .models import User
 from app.models import User
 from config import Config
 from flask_login import login_required
+from app import login_manager
 
 
 auth_bp = Blueprint('auth', __name__)
@@ -71,3 +72,8 @@ def logout():
     logout_user()
     session.pop('google_token', None)
     return redirect(url_for("main.index"))
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
