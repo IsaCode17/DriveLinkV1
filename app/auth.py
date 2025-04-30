@@ -13,6 +13,12 @@ auth_bp = Blueprint('auth', __name__)
 login_manager = LoginManager()
 client = WebApplicationClient(Config.GOOGLE_CLIENT_ID)
 
+from app import login_manager
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
 @auth_bp.route("/login")
 def login():
     google_provider_cfg = requests.get(Config.GOOGLE_DISCOVERY_URL).json()
