@@ -6,7 +6,7 @@ from .drive import upload_to_drive
 from flask_login import login_required
 import os
 import tempfile
- 
+import shutil
 
 
 main_bp = Blueprint('main', __name__)
@@ -28,7 +28,6 @@ def transfer():
         flash('Por favor ingresa una URL válida', 'error')
         return redirect(url_for('main.dashboard'))
     
-    # Configurar carpeta temporal
     temp_dir = tempfile.mkdtemp()
     
     try:
@@ -45,15 +44,16 @@ def transfer():
         else:
             flash('Error al subir el archivo a Google Drive', 'error')
         
-        # Eliminar archivo temporal
-        os.remove(file_path)
-        
     except Exception as e:
         flash(f'Error en el proceso: {str(e)}', 'error')
+        return redirect(url_for('main.dashboard'))
     
     finally:
-        # Limpiar directorio temporal
+        # Limpieza segura del directorio temporal
         if os.path.exists(temp_dir):
-            os.rmdir(temp_dir)
+            try:
+                shutil.rmtree(temp_dir)  # Elimina recursivamente
+            except Exception as e:
+                print(f"Error limpiando directorio temporal: {e}")
     
     return redirect(url_for('main.dashboard'))
