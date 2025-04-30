@@ -32,7 +32,7 @@ def login():
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
         redirect_uri=request.base_url + "/callback",
-        scope=["openid", "email", "profile", "https://www.googleapis.com/auth/drive.file"],
+        scope=["openid", "email", "profile", "https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email"],
     )
     return redirect(request_uri)
 
