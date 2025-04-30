@@ -6,7 +6,13 @@ login_manager = LoginManager()
 def create_app():
     app = Flask(__name__)
     app.config.from_object('config.Config')
-    
+
+    app.config.update(
+        SESSION_COOKIE_SECURE=True,
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE='Lax',
+        PERMANENT_SESSION_LIFETIME=3600  # 1 hora
+    )
     # Inicializar Flask-Login
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
