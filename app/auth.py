@@ -8,6 +8,17 @@ from config import Config
 from flask_login import login_required
 from app import login_manager
 from flask import session  # Añade esto junto a las otras importaciones
+from flask import (
+    Blueprint,
+    redirect,
+    url_for,
+    session,  # ¡Añade esto!
+    request,
+    current_app
+)
+from flask_login import login_user, logout_user
+
+
 
 auth_bp = Blueprint('auth', __name__)
 #login_manager = LoginManager()
