@@ -39,6 +39,7 @@ def login():
 
 @auth_bp.route("/login/callback")
 def callback():
+ try:
     code = request.args.get("code")
     
     google_provider_cfg = requests.get(Config.GOOGLE_DISCOVERY_URL).json()
@@ -81,7 +82,7 @@ def callback():
         
     return redirect(url_for("main.dashboard"))
     
-  except Exception as e:
+ except Exception as e:
         print(f"Error en callback: {str(e)}")  # Ver en logs de Render
         return "Error en autenticación", 500
 
