@@ -21,6 +21,11 @@ def load_user(user_id):
 
 @auth_bp.route("/login")
 def login():
+    # --- DEBUG: Verificar credenciales (eliminar después) ---
+    print("CLIENT_ID:", Config.GOOGLE_CLIENT_ID)
+    print("CLIENT_SECRET:", bool(Config.GOOGLE_CLIENT_SECRET))
+    # -------------------------------------------------------
+    
     google_provider_cfg = requests.get(Config.GOOGLE_DISCOVERY_URL).json()
     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
     
@@ -30,6 +35,7 @@ def login():
         scope=["openid", "email", "profile", "https://www.googleapis.com/auth/drive.file"],
     )
     return redirect(request_uri)
+
 
 @auth_bp.route("/login/callback")
 def callback():
