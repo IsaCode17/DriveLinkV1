@@ -10,7 +10,7 @@ from app import login_manager
 
 
 auth_bp = Blueprint('auth', __name__)
-login_manager = LoginManager()
+#login_manager = LoginManager()
 client = WebApplicationClient(Config.GOOGLE_CLIENT_ID)
 
 from app import login_manager
