@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_login import LoginManager
+from flask_session import Session
 
 login_manager = LoginManager()
 
@@ -13,6 +14,9 @@ def create_app():
         SESSION_COOKIE_SAMESITE='Lax',
         PERMANENT_SESSION_LIFETIME=3600  # 1 hora
     )
+    
+    app.config['SESSION_TYPE'] = 'filesystem'
+    Session(app)
     # Inicializar Flask-Login
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
