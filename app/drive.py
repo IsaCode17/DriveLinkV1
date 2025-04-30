@@ -3,6 +3,8 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 import os
 from flask import current_app
+from flask import session  # Añade esto con las otras importaciones
+
 
 def get_drive_service():
     if 'google_token' not in session:
