@@ -62,22 +62,31 @@ def callback():
     userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
     uri, headers, body = client.add_token(userinfo_endpoint)
     userinfo_response = requests.get(uri, headers=headers, data=body)
-    
-    if userinfo_response.json().get("email_verified"):
-        unique_id = userinfo_response.json()["sub"]
-        users_email = userinfo_response.json()["email"]
-        users_name = userinfo_response.json()["given_name"]
-    else:
-        return "Email no verificado por Google.", 400
-    
+
+    if userinfo_response.status_code != 200:
+            raise ValueError(f"Error obteniendo userinfo: {userinfo_response.text}")
+    user_data = userinfo_response.json()
+        
+    if not user_data.get("email_verified"):
+            return "Email no verificado por Google", 400
+            
     user = User(
-        id_=unique_id, name=users_name, email=users_email
-    )
-    
+            id_=user_data["sub"],
+            name=user_data.get("given_name", ""),
+            email=user_data["email"]
+        )
+        
     login_user(user)
     session['google_token'] = client.access_token
-    
+        
     return redirect(url_for("main.dashboard"))
+    
+  except Exception as e:
+        print(f"Error en callback: {str(e)}")  # Ver en logs de Render
+        return "Error en autenticación", 500
+
+
+
 
 @auth_bp.route("/logout")
 def logout():
